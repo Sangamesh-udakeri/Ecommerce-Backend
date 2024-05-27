@@ -60,4 +60,38 @@ public class ProductService {
 		}
 		return dtos;
 	}
+
+	public Product updateProduct(ProductDto productDto) {
+
+		Product product = new Product();
+		product.setDescription(productDto.getDescription());
+		product.setImageUrl(productDto.getImageUrl());
+		product.setName(productDto.getName());
+		product.setPrice(productDto.getPrice());
+		return productRepository.save(product);
+	}
+
+	public List<ProductDto> deleteProduct(Integer id) {
+		productRepository.deleteById(id);
+		List<Product> products = productRepository.findAll();
+		List<ProductDto> dtos = new ArrayList<>();
+
+		for (Product product : products) {
+			ProductDto dto = new ProductDto();
+			dto.setDescription(product.getDescription());
+			dto.setCategoryId(product.getCategory().getId());
+			dto.setImageUrl(product.getImageUrl());
+			dto.setName(product.getName());
+			dto.setPrice(product.getPrice());
+
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+
+	public Product findById(Integer productId) {
+
+		return productRepository.findById(productId).get();
+	}
+
 }

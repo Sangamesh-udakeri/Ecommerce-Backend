@@ -1,5 +1,7 @@
 package com.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,5 +24,6 @@ public class Product {
 	private @NotNull String description;
 	@ManyToOne
 	@JoinColumn(name="categoryId")
+	@JsonIgnore
 	Category category;
 }
